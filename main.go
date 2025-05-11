@@ -2,7 +2,7 @@
  * @Author: FunctionSir
  * @License: AGPLv3
  * @Date: 2025-05-07 20:46:09
- * @LastEditTime: 2025-05-11 20:49:13
+ * @LastEditTime: 2025-05-11 20:56:14
  * @LastEditors: FunctionSir
  * @Description: -
  * @FilePath: /yaojexec/main.go
@@ -159,28 +159,19 @@ func main() {
 				maxRSS = max(maxRSS, mem.RSS)
 				if x.MemLimit != 0 && maxRSS > x.MemLimit {
 					entry.Status = STATUS_MLE
-					err = syscall.Kill(c.Process.Pid, syscall.SIGKILL)
-					if err != nil {
-						panic(err)
-					}
+					syscall.Kill(c.Process.Pid, syscall.SIGKILL)
 					break
 				}
 				if x.TimeLimit != 0 && maxCpuUserTime > float64(x.TimeLimit) {
 					entry.Status = STATUS_TLE
-					err = syscall.Kill(-c.Process.Pid, syscall.SIGKILL)
-					if err != nil {
-						panic(err)
-					}
+					syscall.Kill(-c.Process.Pid, syscall.SIGKILL)
 					break
 				}
 				if x.StdoutLimit != 0 && x.Stdout != "stdout" {
 					stdoutStat, err = os.Stat(x.Stdout)
 					if err == nil && stdoutStat.Size() > x.StdoutLimit {
 						entry.Status = STATUS_OLE
-						err = syscall.Kill(-c.Process.Pid, syscall.SIGKILL)
-						if err != nil {
-							panic(err)
-						}
+						syscall.Kill(-c.Process.Pid, syscall.SIGKILL)
 						break
 					}
 				}
@@ -188,10 +179,7 @@ func main() {
 					stderrStat, err = os.Stat(x.Stderr)
 					if err == nil && stderrStat.Size() > x.StderrLimit {
 						entry.Status = STATUS_OLE
-						err = syscall.Kill(-c.Process.Pid, syscall.SIGKILL)
-						if err != nil {
-							panic(err)
-						}
+						syscall.Kill(-c.Process.Pid, syscall.SIGKILL)
 						break
 					}
 				}
