@@ -2,7 +2,7 @@
  * @Author: FunctionSir
  * @License: AGPLv3
  * @Date: 2025-05-08 21:04:29
- * @LastEditTime: 2025-05-11 20:46:30
+ * @LastEditTime: 2025-05-12 22:05:03
  * @LastEditors: FunctionSir
  * @Description: -
  * @FilePath: /yaojexec/types.go
@@ -16,13 +16,14 @@ import (
 )
 
 type Task struct {
-	Stdin       string  `json:"stdin"`
-	Stdout      string  `json:"stdout"`
-	Stderr      string  `json:"stderr"`
-	MemLimit    uint64  `json:"mem-limit"`
-	TimeLimit   float64 `json:"time-limit"`
-	StdoutLimit int64   `json:"stdout-limit"`
-	StderrLimit int64   `json:"stderr-limit"`
+	Stdin         string  `json:"stdin"`
+	Stdout        string  `json:"stdout"`
+	Stderr        string  `json:"stderr"`
+	MemLimit      uint64  `json:"mem-limit"`
+	CpuTimeLimit  float64 `json:"cpu-time-limit"`
+	RealTimeLimit float64 `json:"real-time-limit"`
+	StdoutLimit   int64   `json:"stdout-limit"`
+	StderrLimit   int64   `json:"stderr-limit"`
 }
 
 type Config struct {
@@ -34,11 +35,12 @@ type Config struct {
 }
 
 type LogEntry struct {
-	Status     string  `json:"status"`
-	MemUsed    uint64  `json:"mem-used"`
-	TimeUsed   float64 `json:"time-used"`
-	StdoutSize int64   `json:"stdout-size"`
-	StderrSize int64   `json:"stderr-size"`
+	Status       string  `json:"status"`
+	MemUsed      uint64  `json:"mem-used"`
+	CpuTimeUsed  float64 `json:"cpu-time-used"`
+	RealTimeUsed float64 `json:"real-time-used"`
+	StdoutSize   int64   `json:"stdout-size"`
+	StderrSize   int64   `json:"stderr-size"`
 }
 
 type Logs struct {
